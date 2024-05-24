@@ -4,11 +4,29 @@ import {
   useLoaderData,
   redirect,
 } from "@remix-run/react";
-import { json } from "@remix-run/node"; // Import only necessary functions from node
+import { json } from "@remix-run/node";
 import authenticator from "../services/auth.server";
 import { sessionStorage } from "../services/session.server";
 
-// Action function to handle form submission and authentication
+// // Action function to handle form submission and authentication
+// export const action = async ({ request, context }) => {
+//   try {
+//     // Call authenticator and handle success/failure
+//     const resp = await authenticator.authenticate("form", request, {
+//       successRedirect: "/",
+//       failureRedirect: "/login",
+//       throwOnError: true,
+//       context,
+//     });
+//     console.log("Response", resp)
+//     return resp;
+//   } catch (error) {
+//     // Log and return error message
+//     console.log("Authentication error:", error.message);
+//     return json({ error: error.message }, { status: 401 });
+//   }
+// };
+
 export const action = async ({ request, context }) => {
   // call my authenticator
   const resp = await authenticator.authenticate("form", request, {
@@ -37,6 +55,11 @@ export const loader = async ({ request }) => {
 export default function LoginPage() {
   const loaderData = useLoaderData();
   const actionData = useActionData();
+
+  // Extract error messages and ensure they are strings
+  const loaderError = loaderData?.error ? String(loaderData.error.message) : null;
+  const actionError = actionData?.error ? String(actionData.error.message) : null;
+
   return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}>
       <h1>Welcome to Remix-Auth Example</h1>
@@ -59,8 +82,8 @@ export default function LoginPage() {
         </div>
         <button type="submit">Sign In</button>
       </Form>
-      {loaderData?.error && <p style={{ color: "red" }}>ERROR: {loaderData.error}</p>}
-      {actionData?.error && <p style={{ color: "red" }}>ERROR: {actionData.error}</p>}
+      {loaderError && <p style={{ color: "red" }}>ERROR: {loaderError}</p>}
+      {actionError && <p style={{ color: "red" }}>ERROR: {actionError}</p>}
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import authenticator from "../services/auth.server.jsx";
-import { json, useLoaderData } from "@remix-run/react";
+import { json, useLoaderData, Form } from "@remix-run/react";
 
 export const meta = () => {
   return [
@@ -8,6 +8,8 @@ export const meta = () => {
   ];
 };
 
+
+/** Redirect */
 export let loader = async ({ request }) => {
   let user = await authenticator.isAuthenticated(request, {
     failureRedirect: "/login",
@@ -15,14 +17,25 @@ export let loader = async ({ request }) => {
   return json({ user });
 };
 
+/** Logout request */
+
+
+export const action = async ({request}) => {
+  console.log("initiating logout")
+  await authenticator.logout(request, { redirectTo: "/login"});
+};
+
+/** Client return */
 export default function Index() {
   const user = useLoaderData();
-  console.log(user)
   return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
       <h1>Apply Lite</h1>
       <p1>Welcome {user.user.name}</p1>
       <p>You have logged in</p>
+      <Form method="post">
+        <button>Logout</button>
+      </Form>
     </div>
   );
 }
