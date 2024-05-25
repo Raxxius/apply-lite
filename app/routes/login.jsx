@@ -1,9 +1,9 @@
 import {
-  Form,
   useActionData,
   useLoaderData,
   redirect,
 } from "@remix-run/react";
+import LoginBox from "../components/LoginBox";
 import { json } from "@remix-run/node";
 import authenticator from "../services/auth.server";
 import { sessionStorage } from "../services/session.server";
@@ -28,14 +28,13 @@ import { sessionStorage } from "../services/session.server";
 // };
 
 export const action = async ({ request, context }) => {
-  // call my authenticator
+  // call form authenticator
   const resp = await authenticator.authenticate("form", request, {
     successRedirect: "/",
     failureRedirect: "/login",
     throwOnError: true,
     context,
   });
-  console.log(resp);
   return resp;
 };
 
@@ -62,28 +61,11 @@ export default function LoginPage() {
 
   return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}>
-      <h1>Welcome to Remix-Auth Example</h1>
+      <h1>Welcome to Apply-lite</h1>
       <p>
-        Based on the Form Strategy From{" "}
-        <a href="https://github.com/sergiodxa/remix-auth" target="_blank" rel="noopener noreferrer">
-          Remix-Auth Project
-        </a>
+        Please Login to continue
       </p>
-      <Form method="post">
-        <div>
-          <label>
-            Email: <input type="email" name="email" placeholder="email" required />
-          </label>
-        </div>
-        <div>
-          <label>
-            Password: <input type="password" name="password" placeholder="password" autoComplete="current-password" required />
-          </label>
-        </div>
-        <button type="submit">Sign In</button>
-      </Form>
-      {loaderError && <p style={{ color: "red" }}>ERROR: {loaderError}</p>}
-      {actionError && <p style={{ color: "red" }}>ERROR: {actionError}</p>}
+      <LoginBox loaderError={loaderError} actionError={actionError}></LoginBox>
     </div>
   );
 }
