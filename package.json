@@ -18,6 +18,7 @@
     "react-dom": "^18.2.0",
     "remix-auth": "^3.6.0",
     "remix-auth-form": "^1.5.0",
+    "remix-auth-google": "^2.0.0",
     "remix-auth-oauth2": "^2.0.0"
   },
   "devDependencies": {
