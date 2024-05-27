@@ -1,12 +1,15 @@
+// Server imports
 import {
   useActionData,
   useLoaderData,
   redirect,
 } from "@remix-run/react";
-import LoginBox from "../components/LoginBox";
 import { json } from "@remix-run/node";
 import authenticator from "../services/auth.server";
 import { sessionStorage } from "../services/session.server";
+
+// React component imports
+import LoginBox from "../components/LoginBox";
 
 // // Action function to handle form submission and authentication
 // export const action = async ({ request, context }) => {
