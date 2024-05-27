@@ -24,6 +24,9 @@ export default function LoginBox({loaderError, actionError}) {
         </div>
         <button type="submit">Sign In</button>
       </Form>
+      <Form action="/google" method="post">
+        <button>Login with Google</button>
+      </Form>
       {loaderError && <p style={{ color: "red" }}>ERROR: {loaderError}</p>}
       {actionError && <p style={{ color: "red" }}>ERROR: {actionError}</p>}
     </div>
