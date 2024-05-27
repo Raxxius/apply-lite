@@ -8,7 +8,6 @@ export const meta = () => {
   ];
 };
 
-
 /** Redirect */
 export let loader = async ({ request }) => {
   let user = await authenticator.isAuthenticated(request, {
@@ -19,10 +18,9 @@ export let loader = async ({ request }) => {
 
 /** Logout request */
 
-
-export const action = async ({request}) => {
-  console.log("initiating logout")
-  await authenticator.logout(request, { redirectTo: "/login"});
+export const action = async ({ request }) => {
+  console.log("initiating logout");
+  await authenticator.logout(request, { redirectTo: "/login" });
 };
 
 /** Client return */
@@ -31,7 +29,7 @@ export default function Index() {
   return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
       <h1>Apply Lite</h1>
-      <p1>Welcome {user.user.name}</p1>
+      <p>Welcome {user.user.name}</p>
       <p>You have logged in</p>
       <Form method="post">
         <button>Logout</button>

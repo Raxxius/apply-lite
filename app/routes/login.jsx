@@ -8,7 +8,7 @@ import { json } from "@remix-run/node";
 import authenticator from "../services/auth.server";
 import { sessionStorage } from "../services/session.server";
 
-// React component imports
+// Clientside imports
 import LoginBox from "../components/LoginBox";
 
 // // Action function to handle form submission and authentication
@@ -29,6 +29,7 @@ import LoginBox from "../components/LoginBox";
 //     return json({ error: error.message }, { status: 401 });
 //   }
 // };
+
 
 export const action = async ({ request, context }) => {
   // call form authenticator
@@ -53,7 +54,8 @@ export const loader = async ({ request }) => {
   return json({ error });
 };
 
-// LoginPage component to render the login form and display errors
+// Client Side
+
 export default function LoginPage() {
   const loaderData = useLoaderData();
   const actionData = useActionData();
